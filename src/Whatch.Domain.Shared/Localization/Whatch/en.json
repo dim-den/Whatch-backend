@@ -4,6 +4,8 @@
     "Menu:Home": "Home",
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
-    "ERR:00001": "Not valid film or user"
+    "ERR:00001": "Not valid film or user",
+    "Permission:CRUD": "Changing entities",
+    "Permission:LeaveReview": "Leave review"
   }
 }

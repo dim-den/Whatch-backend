@@ -9,8 +9,9 @@ public class WhatchPermissionDefinitionProvider : PermissionDefinitionProvider
     public override void Define(IPermissionDefinitionContext context)
     {
         var myGroup = context.AddGroup(WhatchPermissions.GroupName);
-        //Define your own permissions here. Example:
-        //myGroup.AddPermission(WhatchPermissions.MyPermission1, L("Permission:MyPermission1"));
+
+        myGroup.AddPermission(WhatchPermissions.CrudOperations, L("Permission:CRUD"));
+        myGroup.AddPermission(WhatchPermissions.LeaveReview, L("Permission:LeaveReview"));
     }
 
     private static LocalizableString L(string name)

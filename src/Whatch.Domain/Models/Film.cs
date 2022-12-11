@@ -12,7 +12,7 @@ public class Film : AuditedAggregateRoot<int>
     public string Director { get; set; }
     public int Budget { get; set; }
     public int Fees { get; set; }
-    public DateTime RealeaseDate { get; set; }
+    public DateTime ReleaseDate { get; set; }
     public string Country { get; set; }
     public FilmGenre Genre { get; set; }
     public string TrailerUrl { get; set; }

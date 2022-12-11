@@ -10,6 +10,7 @@ public class WhatchApplicationAutoMapperProfile : Profile
     {
         CreateMap<Film, FilmDto>();
         CreateMap<CreateUpdateFilmDto, Film>();
+        
         CreateMap<Actor, ActorDto>();
         CreateMap<CreateUpdateActorDto, Actor>();
         
@@ -17,5 +18,6 @@ public class WhatchApplicationAutoMapperProfile : Profile
         CreateMap<LeaveReviewDto, FilmReview>();
         
         CreateMap<FilmCast, FilmCastDto>();
+        CreateMap<CreateUpdateFilmCastDto, FilmCast>();
     }
 }

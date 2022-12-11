@@ -16,7 +16,7 @@ public class CreateUpdateFilmDto
     public int Budget { get; set; }
     public int Fees { get; set; }
     [Required]
-    public DateTime RealeaseDate { get; set; }
+    public DateTime ReleaseDate { get; set; }
     [MaxLength(255)]
     [Required]
     public string Country { get; set; }

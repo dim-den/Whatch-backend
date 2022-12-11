@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Whatch.Localization;
+﻿using Whatch.Localization;
 using Volo.Abp.Application.Services;
 
 namespace Whatch;

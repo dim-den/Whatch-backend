@@ -1,10 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Volo.Abp.Identity;
-using Volo.Abp.ObjectExtending;
-using Volo.Abp.Threading;
-using Whatch.Models;
+﻿using Volo.Abp.Threading;
 
 namespace Whatch.EntityFrameworkCore;
 

@@ -6,7 +6,7 @@ namespace Whatch;
 
 public static class WhatchDtoExtensions
 {
-    private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
+    private static readonly OneTimeRunner OneTimeRunner = new();
 
     public static void Configure()
     {

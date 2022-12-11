@@ -379,8 +379,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 await _permissionDataSeeder.SeedAsync(
                     ClientPermissionValueProvider.ProviderName,
                     name,
-                    permissions,
-                    null
+                    permissions
                 );
             }
 

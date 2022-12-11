@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Whatch.Dto;
+using Whatch.Models;
 
 namespace Whatch;
 
@@ -6,8 +8,14 @@ public class WhatchApplicationAutoMapperProfile : Profile
 {
     public WhatchApplicationAutoMapperProfile()
     {
-        /* You can configure your AutoMapper mapping configuration here.
-         * Alternatively, you can split your mapping configurations
-         * into multiple profile classes for a better organization. */
+        CreateMap<Film, FilmDto>();
+        CreateMap<CreateUpdateFilmDto, Film>();
+        CreateMap<Actor, ActorDto>();
+        CreateMap<CreateUpdateActorDto, Actor>();
+        
+        CreateMap<FilmReview, FilmReviewDto>();
+        CreateMap<LeaveReviewDto, FilmReview>();
+        
+        CreateMap<FilmCast, FilmCastDto>();
     }
 }

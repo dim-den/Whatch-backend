@@ -4,6 +4,7 @@ using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Whatch.Models;
 
 namespace Whatch.EntityFrameworkCore;
 
@@ -45,6 +47,11 @@ public class WhatchDbContext :
     public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
     public DbSet<IdentitySecurityLog> SecurityLogs { get; set; }
     public DbSet<IdentityLinkUser> LinkUsers { get; set; }
+    
+    public DbSet<Actor> Actors { get; set; }
+    public DbSet<Film> Films { get; set; }
+    public DbSet<FilmReview> FilmReviews { get; set; }
+    public DbSet<FilmCast> FilmCasts { get; set; }
 
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
@@ -73,13 +80,56 @@ public class WhatchDbContext :
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
 
-        /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(WhatchConsts.DbTablePrefix + "YourEntities", WhatchConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Film>(b =>
+        {
+            b.ToTable("Films", WhatchConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Title).HasMaxLength(255);
+            b.Property(x => x.Description).HasMaxLength(1024);
+            b.Property(x => x.Country).HasMaxLength(255);
+        });
+        
+        builder.Entity<Actor>(b =>
+        {
+            b.ToTable("Actors", WhatchConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Name).HasMaxLength(255);
+            b.Property(x => x.Lastname).HasMaxLength(255);
+        });
+        
+        builder.Entity<FilmCast>(b =>
+        {
+            b.ToTable("FilmCasts", WhatchConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            b.Property(x => x.RoleName).HasMaxLength(255);
+            
+            b.HasOne(x => x.Actor)
+                .WithMany(x => x.Casts)
+                .HasForeignKey(x => x.ActorId);
+            
+            b.HasOne(x => x.Film)
+                .WithMany(x => x.Casts)
+                .HasForeignKey(x => x.FilmId);
+        });
+        
+        builder.Entity<FilmReview>(b =>
+        {
+            b.ToTable("FilmReviews", WhatchConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Review).HasMaxLength(2048);
+            
+            b.HasOne(x => x.Film)
+                .WithMany(x => x.Reviews)
+                .HasForeignKey(x => x.FilmId);
+            
+            b.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
+        });
     }
 }

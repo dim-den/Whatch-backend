@@ -15,7 +15,10 @@ public class WhatchApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateActorDto, Actor>();
         
         CreateMap<FilmReview, FilmReviewDto>();
-        CreateMap<LeaveReviewDto, FilmReview>();
+        CreateMap<FilmReview, FilmReviewsInfoDto>();
+        CreateMap<FilmReview, FilmReviewInfoDto>()
+            .ForMember(x => x.Username, _ => _.MapFrom(x => x.User.UserName));
+        CreateMap<CreateUpdateFilmReviewDto, FilmReview>();
         
         CreateMap<FilmCast, FilmCastDto>();
         CreateMap<CreateUpdateFilmCastDto, FilmCast>();

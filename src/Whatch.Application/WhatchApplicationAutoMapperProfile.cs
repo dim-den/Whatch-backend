@@ -22,5 +22,10 @@ public class WhatchApplicationAutoMapperProfile : Profile
         
         CreateMap<FilmCast, FilmCastDto>();
         CreateMap<CreateUpdateFilmCastDto, FilmCast>();
+        CreateMap<FilmCast, FilmCastInfoDto>()
+            .ForMember(x => x.Birthday, _ => _.MapFrom(x => x.Actor.Birthday))
+            .ForMember(x => x.Name, _ => _.MapFrom(x => x.Actor.Name))
+            .ForMember(x => x.Lastname, _ => _.MapFrom(x => x.Actor.Lastname))
+            .ForMember(x => x.Country, _ => _.MapFrom(x => x.Actor.Country));
     }
 }

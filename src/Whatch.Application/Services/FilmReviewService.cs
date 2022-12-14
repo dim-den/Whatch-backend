@@ -89,15 +89,13 @@ public class FilmReviewService : CrudAppService<FilmReview, FilmReviewDto, int, 
 
     public async Task<FilmReviewsInfoDto> GetFilmReviewsInfo(GetFilmReviewDto request)
     {
-        var userId =_currentUser.Id;
-
         var reviews = await Repository.GetQueryableAsync();
 
         var items = reviews.Where(x => x.FilmId == request.filmId)
             .ProjectTo<FilmReviewInfoDto>(ObjectMapper.GetMapper().ConfigurationProvider)
             .ToList();
 
-        var avgScore = Math.Round(reviews.Average(x => x.Score), 2);
+        var avgScore = Math.Round(items.Average(x => x.Score), 2);
         double? currentUserFilmScore = null;
         string currentUserFilmReview = null;
         

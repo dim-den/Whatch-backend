@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
@@ -22,7 +23,7 @@ public class FilmReviewService : CrudAppService<FilmReview, FilmReviewDto, int, 
     {
         _currentUser = currentUser;
         CreatePolicyName = WhatchPermissions.CrudOperations;
-        DeletePolicyName = WhatchPermissions.CrudOperations;
+        DeletePolicyName = WhatchPermissions.LeaveReview;
         UpdatePolicyName = WhatchPermissions.CrudOperations;
     }
 
@@ -85,7 +86,8 @@ public class FilmReviewService : CrudAppService<FilmReview, FilmReviewDto, int, 
             review = await Repository.UpdateAsync(review);
         }
 
-        return ObjectMapper.Map<FilmReview, FilmReviewDto>(review);    }
+        return ObjectMapper.Map<FilmReview, FilmReviewDto>(review);    
+    }
 
     public async Task<FilmReviewsInfoDto> GetFilmReviewsInfo(GetFilmReviewDto request)
     {
@@ -95,7 +97,7 @@ public class FilmReviewService : CrudAppService<FilmReview, FilmReviewDto, int, 
             .ProjectTo<FilmReviewInfoDto>(ObjectMapper.GetMapper().ConfigurationProvider)
             .ToList();
 
-        var avgScore = Math.Round(items.Average(x => x.Score), 2);
+        var avgScore = items.Any() ? Math.Round(items.Average(x => x.Score), 2) : 0;
         double? currentUserFilmScore = null;
         string currentUserFilmReview = null;
         
@@ -117,5 +119,18 @@ public class FilmReviewService : CrudAppService<FilmReview, FilmReviewDto, int, 
             CurrentUserFilmScore = currentUserFilmScore,
             CurrentUserFilmReview = currentUserFilmReview
         };
+    }
+
+    [Authorize]
+    public async Task<List<UserFilmReviewDto>> GetCurrentUserFilmReview()
+    {
+        var list = await Repository.GetQueryableAsync();
+
+        var items = list
+            .Where(x => x.UserId == _currentUser.Id)
+            .ProjectTo<UserFilmReviewDto>(ObjectMapper.GetMapper().ConfigurationProvider)
+            .ToList();
+
+        return items;   
     }
 }

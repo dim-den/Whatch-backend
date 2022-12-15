@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Whatch.Dto;
@@ -11,5 +12,6 @@ public interface IFilmReviewService : ICrudAppService<FilmReviewDto, int, PagedA
     Task<FilmReviewDto> PostLeaveReview(LeaveReviewDto request);
     
     Task<FilmReviewsInfoDto> GetFilmReviewsInfo(GetFilmReviewDto request);
+    Task<List<UserFilmReviewDto>> GetCurrentUserFilmReview();
 
 }

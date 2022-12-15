@@ -52,6 +52,7 @@ public class WhatchDbContext :
     public DbSet<Film> Films { get; set; }
     public DbSet<FilmReview> FilmReviews { get; set; }
     public DbSet<FilmCast> FilmCasts { get; set; }
+    public DbSet<Watchlist> WatchLists { get; set; }
 
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
@@ -125,6 +126,20 @@ public class WhatchDbContext :
             
             b.HasOne(x => x.Film)
                 .WithMany(x => x.Reviews)
+                .HasForeignKey(x => x.FilmId);
+            
+            b.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
+        });
+        
+        builder.Entity<Watchlist>(b =>
+        {
+            b.ToTable("Whatchlists", WhatchConsts.DbSchema);
+            b.ConfigureByConvention();
+            
+            b.HasOne(x => x.Film)
+                .WithMany()
                 .HasForeignKey(x => x.FilmId);
             
             b.HasOne(x => x.User)

@@ -19,6 +19,8 @@ public class WhatchApplicationAutoMapperProfile : Profile
         CreateMap<FilmReview, FilmReviewInfoDto>()
             .ForMember(x => x.Username, _ => _.MapFrom(x => x.User.UserName));
         CreateMap<CreateUpdateFilmReviewDto, FilmReview>();
+        CreateMap<FilmReview, UserFilmReviewDto>()
+            .ForMember(x => x.Film, _ => _.MapFrom(x => x.Film));
         
         CreateMap<FilmCast, FilmCastDto>();
         CreateMap<CreateUpdateFilmCastDto, FilmCast>();
@@ -27,5 +29,8 @@ public class WhatchApplicationAutoMapperProfile : Profile
             .ForMember(x => x.Name, _ => _.MapFrom(x => x.Actor.Name))
             .ForMember(x => x.Lastname, _ => _.MapFrom(x => x.Actor.Lastname))
             .ForMember(x => x.Country, _ => _.MapFrom(x => x.Actor.Country));
+
+        CreateMap<Watchlist, UserWatchlistDto>()
+            .ForMember(x => x.Film, _ => _.MapFrom(x => x.Film));
     }
 }

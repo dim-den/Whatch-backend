@@ -9,6 +9,8 @@ public class WhatchApplicationAutoMapperProfile : Profile
     public WhatchApplicationAutoMapperProfile()
     {
         CreateMap<Film, FilmDto>();
+        CreateMap<Film, FilmWithScoreDto>()
+            .ForMember(x => x.AvgScore, _ => _.Ignore());
         CreateMap<CreateUpdateFilmDto, Film>();
         
         CreateMap<Actor, ActorDto>();

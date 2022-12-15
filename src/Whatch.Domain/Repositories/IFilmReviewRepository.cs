@@ -8,4 +8,5 @@ namespace Whatch.Repositories;
 public interface IFilmReviewRepository : IRepository<FilmReview, int>
 {
     Task<int> LeaveReview(Guid userId, int filmId, int score, string review = null);
+    Task<double?> GetFilmAvgScore(int filmId);
 }

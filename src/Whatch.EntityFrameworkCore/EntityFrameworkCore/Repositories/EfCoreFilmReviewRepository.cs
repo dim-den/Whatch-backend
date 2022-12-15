@@ -30,8 +30,8 @@ public class EfCoreFilmReviewRepository : EfCoreRepository<WhatchDbContext, Film
         {
             Score = score,
             Review = review,
-            FilmId = film.Id,
-            UserId = user.Id
+            FilmId = film!.Id,
+            UserId = user!.Id
         };
 
         context.FilmReviews.Add(filmReview);
@@ -39,5 +39,13 @@ public class EfCoreFilmReviewRepository : EfCoreRepository<WhatchDbContext, Film
         await context.SaveChangesAsync(CancellationTokenProvider.Token);
 
         return filmReview.Id;
+    }
+
+    public async Task<double?> GetFilmAvgScore(int filmId)
+    {
+        var context = await GetDbContextAsync();
+
+        return await context.FilmReviews.Where(x => x.FilmId == filmId)
+            .AverageAsync(x => x.Score);
     }
 }

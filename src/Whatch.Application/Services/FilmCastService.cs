@@ -28,6 +28,7 @@ public class FilmCastService : CrudAppService<FilmCast, FilmCastDto, int, PagedA
         var result = casts.Where(x => x.FilmId == request.FilmId)
             .ProjectTo<FilmCastInfoDto>(ObjectMapper.GetMapper().ConfigurationProvider)
             .ToList();
+        
 
         return result;
     }

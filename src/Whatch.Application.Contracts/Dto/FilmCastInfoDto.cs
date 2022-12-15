@@ -1,6 +1,10 @@
-﻿namespace Whatch.Dto;
+﻿using Volo.Abp.Application.Dtos;
 
-public class FilmCastInfoDto : ActorDto
+namespace Whatch.Dto;
+
+public class FilmCastInfoDto : AuditedEntityDto<int>
 {
     public string RoleName { get; set; }
+
+    public ActorDto Actor { get; set; }
 }

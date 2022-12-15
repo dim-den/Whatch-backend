@@ -11,10 +11,10 @@ using Whatch.Repositories;
 
 namespace Whatch.EntityFrameworkCore.Repositories;
 
-public class EfCoreFilmRepository: EfCoreRepository<WhatchDbContext, Film>, IFilmRepository
+public class EfCoreFilmRepository : EfCoreRepository<WhatchDbContext, Film>, IFilmRepository
 {
     private WhatchDbContext _context;
-    
+
     public EfCoreFilmRepository(IDbContextProvider<WhatchDbContext> dbContextProvider) : base(dbContextProvider)
     {
     }
@@ -30,19 +30,19 @@ public class EfCoreFilmRepository: EfCoreRepository<WhatchDbContext, Film>, IFil
         }
 
         List<Film> recommended = new();
-        foreach (var genre in userFavourites)
+        for (int i = 0; i < userFavourites.Take(3).Count(); i++)
         {
-            var res = await GetBestFilmsOfGenre(genre);
+            var res = await GetBestFilmsOfGenre(userFavourites[i], (3 - i) * 5);
             recommended.AddRange(res);
         }
-
+        
         return recommended.Shuffle().Take(5).ToList();
     }
 
     private async Task<List<FilmGenre>> GetUserFavouriteGenres(Guid userId)
     {
-       var result = await _context.FilmReviews.AsNoTracking()
-           .Where(x => x.UserId == userId)
+        var result = await _context.FilmReviews.AsNoTracking()
+            .Where(x => x.UserId == userId)
             .Select(x => new
             {
                 x.Film.Genre,
@@ -55,10 +55,10 @@ public class EfCoreFilmRepository: EfCoreRepository<WhatchDbContext, Film>, IFil
             })
             .ToListAsync();
 
-       return result.OrderByDescending(x => x.avgScore).Select(x => x.genre).ToList();
+        return result.OrderByDescending(x => x.avgScore).Select(x => x.genre).ToList();
     }
-    
-    private async Task<List<Film>> GetBestFilmsOfGenre(FilmGenre genre)
+
+    private async Task<List<Film>> GetBestFilmsOfGenre(FilmGenre genre, int count)
     {
         var result = await _context.Films.AsNoTracking()
             .Where(x => x.Genre == genre)
@@ -68,7 +68,7 @@ public class EfCoreFilmRepository: EfCoreRepository<WhatchDbContext, Film>, IFil
                 avgScore = x.Reviews.Average(y => y.Score)
             })
             .OrderByDescending(x => x.avgScore)
-            .Take(10)
+            .Take(count)
             .ToListAsync();
 
         return result.Select(x => x.film).ToList();
@@ -82,7 +82,6 @@ public class EfCoreFilmRepository: EfCoreRepository<WhatchDbContext, Film>, IFil
             .Select(x => (FilmGenre)x)
             .ToList();
     }
-    
 }
 
 public static class ListExtensions

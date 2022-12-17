@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Whatch.Dto;
 using Whatch.Models;
 
@@ -9,6 +10,8 @@ public class WhatchApplicationAutoMapperProfile : Profile
     public WhatchApplicationAutoMapperProfile()
     {
         CreateMap<Film, FilmDto>();
+        CreateMap<Film, FilmSearchDto>()
+            .ForMember(x => x.Actors, _ => _.MapFrom(x => x.Casts.Select(y => y.Actor)));
         CreateMap<Film, FilmWithScoreDto>()
             .ForMember(x => x.AvgScore, _ => _.Ignore());
         CreateMap<CreateUpdateFilmDto, Film>();

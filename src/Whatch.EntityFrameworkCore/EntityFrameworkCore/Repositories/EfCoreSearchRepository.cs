@@ -33,6 +33,8 @@ public class EfCoreSearchRepository : EfCoreRepository<WhatchDbContext, Film>, I
         key = key.ToLower();
         
         var films = await context.Films.AsNoTracking()
+            .Include(x => x.Casts)
+                .ThenInclude(x => x.Actor)
             .WhereIf(filterBy == FilmFilterType.ByTitle,
                 x => x.Title.ToLower().Contains(key))
             .WhereIf(filterBy == FilmFilterType.ByGenre,

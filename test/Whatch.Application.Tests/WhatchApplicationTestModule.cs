@@ -4,7 +4,7 @@ namespace Whatch;
 
 [DependsOn(
     typeof(WhatchApplicationModule),
-    typeof(WhatchDomainTestModule)
+    typeof(WhatchApplicationTestModule)
     )]
 public class WhatchApplicationTestModule : AbpModule
 {

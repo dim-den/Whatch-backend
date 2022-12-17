@@ -7,5 +7,5 @@ namespace Whatch.Services;
 
 public interface ISearchService : IApplicationService
 {
-    Task<PagedResultDto<FilmDto>> GetSearchFilm(SearchFilmDto request);
+    Task<PagedResultDto<FilmSearchDto>> GetSearchFilm(SearchFilmDto request);
 }

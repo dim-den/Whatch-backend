@@ -17,15 +17,15 @@ public class SearchService : WhatchAppService, ISearchService
         _repository = repository;
     }
 
-    public async Task<PagedResultDto<FilmDto>> GetSearchFilm(SearchFilmDto request)
+    public async Task<PagedResultDto<FilmSearchDto>> GetSearchFilm(SearchFilmDto request)
     {
         var films = await _repository.SearchFilm(request.Key, request.FilterBy, request.MaxResultCount);
         var totalCount = films.Count;
-        films = films.Skip(request.SkipCount).Take(request.MaxResultCount).ToList();
+        films = films.ToList();
 
-        var filmsDto = ObjectMapper.Map<List<Film>, List<FilmDto>>(films);
+        var filmsDto = ObjectMapper.Map<List<Film>, List<FilmSearchDto>>(films);
 
-        return new PagedResultDto<FilmDto>(
+        return new PagedResultDto<FilmSearchDto>(
             totalCount,
             filmsDto
         );

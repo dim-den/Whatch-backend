@@ -28,13 +28,8 @@ public class FilmDataSeederContributor : IDataSeedContributor, ITransientDepende
         var films = GetFilms();
         var actors = GetActors();
         var casts = GetFilmCasts(films, actors);
-
-        var missedFilms = films.Where(x => !casts.Any(y => y.Film.Title.StartsWith(x.Title)));
-        var missedActors = actors.Where(x => !casts.Any(y => y.Actor.Lastname.StartsWith(x.Lastname)));
-
-       // await _filmCastRepository.InsertManyAsync(casts);
-        //await _filmRepository.InsertManyAsync(missedFilms);
-        //await _actorRepository.InsertManyAsync(missedActors);
+        
+        await _filmCastRepository.InsertManyAsync(casts);
     }
 
     private List<FilmCast> GetFilmCasts(List<Film> films, List<Actor> actors)
@@ -43,44 +38,65 @@ public class FilmDataSeederContributor : IDataSeedContributor, ITransientDepende
 
         casts.Add(new()
         {
-            RoleName = "Nina Saires",
-            Film = films.First(x => x.Title.StartsWith("Black Swan")),
-            Actor = actors.First(x => x.Lastname.StartsWith("Portman"))
+            RoleName = "Andrew",
+            Film = films.First(x => x.Title.StartsWith("Bicentennial")),
+            Actor = actors.First(x => x.Lastname.StartsWith("Williams"))
         });
         
         casts.Add(new()
         {
-            RoleName = "Tomas Leroy",
-            Film = films.First(x => x.Title.StartsWith("Black Swan")),
-            Actor = actors.First(x => x.Lastname.StartsWith("Cassel"))
+            RoleName = "Little Miss",
+            Film = films.First(x => x.Title.StartsWith("Bicentennial")),
+            Actor = actors.First(x => x.Lastname.StartsWith("Davidtz"))
+        });
+         
+        casts.Add(new()
+        {
+            RoleName = "John Milton",
+            Film = films.First(x => x.Title.StartsWith("The Devil")),
+            Actor = actors.First(x => x.Lastname.StartsWith("Pacino"))
         });
         
         casts.Add(new()
-        {
-            RoleName = "Odillia",
-            Film = films.First(x => x.Title.StartsWith("Black Swan")),
-            Actor = actors.First(x => x.Lastname.StartsWith("Kunis"))
+        {   
+            RoleName = "Kevin Lomax",
+            Film = films.First(x => x.Title.StartsWith("The Devil")),
+            Actor = actors.First(x => x.Lastname.StartsWith("Reeves"))
         });
         
         casts.Add(new()
-        {
-            RoleName = "Rik Dalton",
-            Film = films.First(x => x.Title.StartsWith("Once")),
-            Actor = actors.First(x => x.Lastname.StartsWith("DiCaprio"))
+        {   
+            RoleName = "Jordan Belfort",
+            Film = films.First(x => x.Title.StartsWith("The Wolf of ")),
+            ActorId = 1
         });
         
         casts.Add(new()
-        {
-            RoleName = "Kliff Bout",
-            Film = films.First(x => x.Title.StartsWith("Once")),
-            Actor = actors.First(x => x.Lastname.StartsWith("Pitt"))
-        });
-
+        {   
+            RoleName = "Donnie Azoff",
+            Film = films.First(x => x.Title.StartsWith("The Wolf of ")),
+            Actor = actors.First(x => x.Lastname.StartsWith("Hill"))
+        });  
+        
         casts.Add(new()
-        {
-            RoleName = "Sharon Teight",
-            Film = films.First(x => x.Title.StartsWith("Once")),
+        {   
+            RoleName = "Naomi Lapaglia",
+            Film = films.First(x => x.Title.StartsWith("The Wolf of ")),
             Actor = actors.First(x => x.Lastname.StartsWith("Robbie"))
+        });
+        
+        casts.Add(new()
+        {   
+            RoleName = "Cobb",
+            Film = films.First(x => x.Title.StartsWith("Inception")),
+            ActorId = 1
+        });
+        
+        casts.Add(new()
+        {   
+            RoleName = "Robert Fischer",
+            Film = films.First(x => x.Title.StartsWith("Inception")),
+            Actor = actors.First(x => x.Lastname.StartsWith("Murphy"))
         });
         
         return casts;
@@ -92,67 +108,54 @@ public class FilmDataSeederContributor : IDataSeedContributor, ITransientDepende
         
         films.Add(new()
         {
-            Title = "Black Swan",
-            Description = "A committed dancer struggles to maintain her sanity after winning the lead role in a production of Tchaikovsky Swan Lake",
-            Country = "USA",
-            Director = "Darren Aronofsky",
-            Budget = 13000000,
-            Fees = 330000000,
-            ReleaseDate = DateTime.Parse("2010-01-10 00:00:00.000"),
-            Genre = FilmGenre.Thriller,
-            TrailerUrl = "https://www.youtube.com/embed/5jaI1XOB-bs"
-        });
-        
-        films.Add(new()
-        {
-            Title = "Once Upon a Time... in Hollywood",
-            Description = "A faded television actor and his stunt double strive to achieve fame and success in the final years of Hollywood Golden Age in 1969 Los Angeles.",
-            Country = "USA",
-            Director = "Quentin Tarantino",
-            Budget = 90000000,
-            Fees = 370000000,
-            ReleaseDate = DateTime.Parse("2019-08-07 03:00:00.000"),
-            Genre = FilmGenre.Comedy,
-            TrailerUrl = "https://www.youtube.com/embed/Rga4rp4j5TY"
-        });
-        
-        films.Add(new()
-        {
-            Title = "The Green Mile",
-            Description = "The lives of guards on Death Row are affected by one of their charges: a black man accused of child murder and rape, yet who has a mysterious gift",
-            Country = "USA",
-            Director = "James Cameron",
-            Budget = 200000000,
-            Fees = 639000000,
-            ReleaseDate = DateTime.Parse("2000-04-18 03:00:00.000"),
+            Title = "Bicentennial Man",
+            Description = "An android endeavors to become human as he gradually acquires emotions.",
+            Country = "Germany, USA",
+            Director = "Chris Columbus",
+            Budget = 10000000,
+            Fees = 87423861,
+            ReleaseDate = DateTime.Parse("1999-12-17 00:00:00.000"),
             Genre = FilmGenre.Drama,
-            TrailerUrl = "https://www.youtube.com/embed/Ki4haFrqSrw"
-        });
+            TrailerUrl = "https://www.youtube.com/embed/z5YMEwX2-88"
+        });  
         
         films.Add(new()
         {
-            Title = "Titanic",
-            Description = "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
+            Title = "The Devil's Advocate",
+            Description = "An exceptionally-adept Florida lawyer is offered a job at a high-end New York City law firm with a high-end boss--the biggest opportunity of his career to date.",
+            Country = "Germany, USA",
+            Director = "Taylor Hackford",
+            Budget = 57000000,
+            Fees = 153000000,
+            ReleaseDate = DateTime.Parse("1997-10-11 00:00:00.000"),
+            Genre = FilmGenre.Drama,
+            TrailerUrl = "https://www.youtube.com/embed/40hHA9n4C2o"
+        }); 
+        
+        films.Add(new()
+        {
+            Title = "The Wolf of Wall Street",
+            Description = "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.",
             Country = "USA",
-            Director = "James Cameron",
-            Budget = 200000000,
-            Fees = 60000000,
-            ReleaseDate = DateTime.Parse("2000-04-18 03:00:00.000"),
+            Director = "Martin Scorsese",
+            Budget = 100000000,
+            Fees = 405000000,
+            ReleaseDate = new DateTime(2013, 12, 19),
             Genre = FilmGenre.Drama,
-            TrailerUrl = "https://www.youtube.com/embed/cIJ8ma0kKtY"
+            TrailerUrl = "https://www.youtube.com/embed/iszwuX1AK6A"
         });
         
         films.Add(new()
         {
-            Title = "Fight Club",
-            Description = "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
-            Country = "USA, Germany",
-            Director = "David Fincher",
-            Budget = 60000000,
-            Fees = 131560000,
-            ReleaseDate = DateTime.Parse("2000-01-13 02:00:00.000"),
-            Genre = FilmGenre.Drama,
-            TrailerUrl = "https://www.youtube.com/embed/qtRKdVHc-cE"
+            Title = "Inception",
+            Description = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
+            Country = "USA",
+            Director = "Christopher Nolan",
+            Budget = 160000000,
+            Fees = 830000000,
+            ReleaseDate = new DateTime(2010, 7, 16),
+            Genre = FilmGenre.ScienceFiction,
+            TrailerUrl = "https://www.youtube.com/embed/YoHD9XEInc0"
         });
 
         return films;
@@ -164,26 +167,42 @@ public class FilmDataSeederContributor : IDataSeedContributor, ITransientDepende
         
         actors.Add(new()
         {
-            Name = "Leonardo",
-            Lastname = "DiCaprio",
+            Name = "Robin",
+            Lastname = "Williams",
             Country = "USA",
-            Birthday = DateTime.Parse("1974-11-11")
+            Birthday = DateTime.Parse("1951-11-21")
         });
         
         actors.Add(new()
         {
-            Name = "Brad",
-            Lastname = "Pitt",
+            Name = "Embeth",
+            Lastname = "Davidtz",
             Country = "USA",
-            Birthday = DateTime.Parse("1963-11-18")
+            Birthday = DateTime.Parse("1971-11-21")
         });
         
         actors.Add(new()
         {
-            Name = "Mila",
-            Lastname = "Kunis",
-            Country = "Ukraine",
-            Birthday = DateTime.Parse("1983-08-14")
+            Name = "Keanu",
+            Lastname = "Reeves",
+            Country = "Lebanon",
+            Birthday = new DateTime(1964, 9, 11)
+        });
+        
+        actors.Add(new()
+        {
+            Name = "Al",
+            Lastname = "Pacino",
+            Country = "USA",
+            Birthday = new DateTime(1940, 4, 25)
+        });
+        
+        actors.Add(new()
+        {
+            Name = "Jonah",
+            Lastname = "Hill",
+            Country = "USA",
+            Birthday = new DateTime(1983, 4, 20)
         });
         
         actors.Add(new()
@@ -191,55 +210,15 @@ public class FilmDataSeederContributor : IDataSeedContributor, ITransientDepende
             Name = "Margot",
             Lastname = "Robbie",
             Country = "Australia",
-            Birthday = DateTime.Parse("1990-07-05")
+            Birthday = new DateTime(1990, 7, 20)
         });
         
         actors.Add(new()
         {
-            Name = "Eva",
-            Lastname = "Green",
-            Country = "France",
-            Birthday = DateTime.Parse("1980-07-06")
-        });
-        
-        actors.Add(new()
-        {
-            Name = "Daniel",
-            Lastname = "Craig",
-            Country = "UK",
-            Birthday = DateTime.Parse("1968-03-02")
-        });
-        
-        actors.Add(new()
-        {
-            Name = "Natalie",
-            Lastname = "Portman",
-            Country = "Israel",
-            Birthday = DateTime.Parse("1981-06-09")
-        });
-        
-        actors.Add(new()
-        {
-            Name = "Vincent",
-            Lastname = "Cassel",
-            Country = "France",
-            Birthday = DateTime.Parse("1966-11-23")
-        });  
-        
-        actors.Add(new()
-        {
-            Name = "Will",
-            Lastname = "Smith",
-            Country = "USA",
-            Birthday = DateTime.Parse("1968-09-25")
-        });  
-        
-        actors.Add(new()
-        {
-            Name = "Bridget",
-            Lastname = "Moynahan",
-            Country = "USA",
-            Birthday = DateTime.Parse("1971-09-28")
+            Name = "Cillian",
+            Lastname = "Murphy",
+            Country = "Ireland",
+            Birthday = new DateTime(1973, 7, 20)
         });
         
         return actors;

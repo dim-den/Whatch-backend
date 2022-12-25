@@ -45,7 +45,7 @@ public class EfCoreFilmReviewRepository : EfCoreRepository<WhatchDbContext, Film
     {
         var context = await GetDbContextAsync();
 
-        return await context.FilmReviews.Where(x => x.FilmId == filmId)
-            .AverageAsync(x => x.Score);
+        var reviews = context.FilmReviews.Where(x => x.FilmId == filmId);
+        return reviews.Any() ? await reviews.AverageAsync(x => x.Score) : 0;
     }
 }

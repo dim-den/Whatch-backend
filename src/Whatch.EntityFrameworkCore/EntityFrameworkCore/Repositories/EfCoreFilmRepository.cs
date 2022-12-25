@@ -65,7 +65,7 @@ public class EfCoreFilmRepository : EfCoreRepository<WhatchDbContext, Film>, IFi
             .Select(x => new
             {
                 film = x,
-                avgScore = x.Reviews.Average(y => y.Score)
+                avgScore = x.Reviews.Any() ? x.Reviews.Average(y => y.Score) : 0,
             })
             .OrderByDescending(x => x.avgScore)
             .Take(count)

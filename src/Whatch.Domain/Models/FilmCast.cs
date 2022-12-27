@@ -1,8 +1,9 @@
-﻿using Volo.Abp.Domain.Entities.Auditing;
+﻿using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Whatch.Models;
 
-public class FilmCast : AuditedAggregateRoot<int>
+public class FilmCast : BasicAggregateRoot<int>
 {
     public string RoleName { get; set; }
     

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Whatch.Enums;
 
 namespace Whatch.Models;
 
-public class Film : AuditedAggregateRoot<int>
+public class Film : BasicAggregateRoot<int>
 {
     public string Title { get; set; }
     public string Description { get; set; }

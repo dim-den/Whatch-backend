@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 using Whatch.EntityFrameworkCore;
@@ -12,9 +13,10 @@ using Whatch.EntityFrameworkCore;
 namespace Whatch.Migrations
 {
     [DbContext(typeof(WhatchDbContext))]
-    partial class WhatchDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221227082412_cleanup-structure")]
+    partial class cleanupstructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
